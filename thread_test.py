@@ -158,6 +158,24 @@ def get_frame_data():
         print(ret)
         return jsonify(ret)
 
+@app.route('/img', methods=['POST'])
+def process_img():
+    all_time = time.time()
+    if request.method == 'POST':
+        
+        data = request.get_data()
+        try:
+            print(type(data))
+            unpick = pickle.loads(data)
+            print(unpick.shape)
+            ret = arcface_ins.image_to_nn_data(unpick)
+            return jsonify(ret)
+
+        except:
+            print('detect error')    
+            return jsonify({"status":"detect error"})
+
+
 if __name__ == '__main__':
     
     ### TEST #####
