@@ -175,6 +175,11 @@ def process_img():
             print('detect error')    
             return jsonify({"status":"detect error"})
 
+@app.route('/stop', methods=['GET'])
+def stop_all():
+    if request.method == 'GET':
+        arcface_ins.grabs_loop_stop()
+        return jsonify({"status":"Loops stopped"})
 
 if __name__ == '__main__':
     
